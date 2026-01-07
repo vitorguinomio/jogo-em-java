@@ -16,6 +16,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
     public static Spritesheet sheetEnemies;
     public static Spritesheet sheetShoot;
     public static Spritesheet sheetShoot2;
+    public static Spritesheet sheetNewEnemies;
 
     private BufferedImage playerImage;
     private BufferedImage grassImage;
@@ -29,6 +30,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         sheetEnemies = new Spritesheet("/spritesheet_floresta.png");
         sheetShoot = new Spritesheet("/spreisheet_tiro.png");
         sheetShoot2 = new Spritesheet("/spreisheet_tiro2.png");
+        sheetNewEnemies = new Spritesheet("/enemies.png");
         Blocks.wallTile = sheetBlocks.getSprite(9, 146, 3, 3);
         Blocks.grassTile = sheetEnemies.getSprite(225, 0, 40, 40);
         player = new  player(32,32);
@@ -113,7 +115,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
             player.down = true;
 
         }
-        if (e.getKeyCode() == KeyEvent.VK_Q){
+        if (e.getKeyCode() == KeyEvent.VK_Z){
             player.shoot= true;
         }
     }

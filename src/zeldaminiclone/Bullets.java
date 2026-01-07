@@ -107,13 +107,26 @@ public class Bullets extends Rectangle {
 
     public void render(Graphics g) {
         if (hitting) {
-
+            // Desenha a explosão
             if(index < hitSprites.length)
                 g.drawImage(hitSprites[index], x, y, width, height, null);
         } else {
-
-            if(index < sprites.length)
-                g.drawImage(sprites[index], x, y, width, height, null);
+            // Desenha o tiro voando (escolhendo a lista baseada na direção)
+            if (dir == 0) { // Direita
+                if(index < rightSprites.length)
+                    g.drawImage(rightSprites[index], x, y, width, height, null);
+            }
+            else if (dir == 1) { // Esquerda
+                if(index < leftSprites.length)
+                    g.drawImage(leftSprites[index], x, y, width, height, null);
+            }
+            else if (dir == 2) { // Cima
+                if(index < upSprites.length)
+                    g.drawImage(upSprites[index], x, y, width, height, null);
+            }
+            else if (dir == 3) { // Baixo
+                if(index < downSprites.length)
+                    g.drawImage(downSprites[index], x, y, width, height, null);
+            }
         }
-    }
-}
+    }}
