@@ -5,35 +5,39 @@ import java.awt.image.BufferedImage;
 
 public class inimigos extends Rectangle {
 
-    public int spd = 1; // Inimigo geralmente é mais lento que o player
-    public int type;    // 1 = Orc, 2 = Mago, 3 = Slime
+    public int spd = 1;
+    public int type;
+    public int frames = 0, maxFrames = 30, index = 0, maxIndex = 3;
+    private BufferedImage[] spritesOrc;
+    private BufferedImage[] spritesSlime;
+    private BufferedImage[] spritesMago;
 
-    // Animação
-    public int frames = 0, maxFrames = 10, index = 0, maxIndex = 3;
-    private BufferedImage[] sprites;
 
     public inimigos(int x, int y, int type) {
         super(x, y, 32, 32);
         this.type = type;
-        sprites = new BufferedImage[4]; // Assumindo 4 frames de animação
+        spritesOrc = new BufferedImage[3];
+        spritesMago = new BufferedImage[3];
+        spritesSlime = new BufferedImage[3];
 
-        // --- AQUI VOCÊ CARREGA OS SPRITES BASEADO NO TIPO ---
-        // Você precisará pegar o X e Y exato no Paint para cada linha da imagem
 
-        for(int i = 0; i < 4; i++) {
-            if(type == 1) {
-                // ORC (Primeira linha da imagem)
-                // Exemplo: X muda a cada 32px (ou tamanho do seu sprite)
-                sprites[i] = Game.sheetNewEnemies.getSprite(i * 32, 0, 32, 32);
-            }
-            else if(type == 2) {
-                // MAGO (Segunda linha)
-                sprites[i] = Game.sheetNewEnemies.getSprite(i * 32, 32, 32, 32);
-            }
-            else if(type == 3) {
-                // SLIME (Terceira linha)
-                sprites[i] = Game.sheetNewEnemies.getSprite(i * 32, 64, 32, 32);
-            }
+        if(type == 1) {
+
+            spritesOrc[0] = Game.sheetNewEnemies.getSprite(0, 15, 85, 100);
+            spritesOrc[1] = Game.sheetNewEnemies.getSprite(110, 15, 85, 100);
+            spritesOrc[2] = Game.sheetNewEnemies.getSprite(195, 15, 85, 100);
+        }
+        else if(type == 2) {
+
+            spritesMago[0] = Game.sheetNewEnemies.getSprite(0, 135, 90, 100);
+            spritesMago[1] = Game.sheetNewEnemies.getSprite(116, 135, 90, 100);
+            spritesMago[2] = Game.sheetNewEnemies.getSprite(215, 135, 90, 100);
+        }
+        else if(type == 3) {
+
+            spritesSlime[0] = Game.sheetNewEnemies.getSprite(0, 285, 100, 100);
+            spritesSlime[1] = Game.sheetNewEnemies.getSprite(100, 285, 100, 100);
+            spritesSlime[2] = Game.sheetNewEnemies.getSprite(185, 285, 100, 100);
         }
     }
 
@@ -64,9 +68,23 @@ public class inimigos extends Rectangle {
     }
 
     public void render(Graphics g) {
-        // Desenha o sprite atual da animação
-        if(index < sprites.length) {
-            g.drawImage(sprites[index], x, y, 32, 32, null);
+        // Se for TIPO 1 (Orc), desenha usando a lista do Orc
+        if (type == 1) {
+            // Verifica se o index é seguro para evitar erros
+            if (index < spritesOrc.length) {
+                g.drawImage(spritesOrc[index], x, y, 32, 32, null);
+            }
         }
-    }
-}
+        // Se for TIPO 2 (Mago)
+        else if (type == 2) {
+            if (index < spritesMago.length) {
+                g.drawImage(spritesMago[index], x, y, 32, 32, null);
+            }
+        }
+        // Se for TIPO 3 (Slime)
+        else if (type == 3) {
+            if (index < spritesSlime.length) {
+                g.drawImage(spritesSlime[index], x, y, 32, 32, null);
+            }
+        }
+    }}
